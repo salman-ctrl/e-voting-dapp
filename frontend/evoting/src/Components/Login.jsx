@@ -1,20 +1,34 @@
 import React from 'react'
+import SplitText from "./styling/SplitText";
+import PropTypes from 'prop-types';
 
-const Login = () => {
+
+
+const Login = (props) => {
+    const handleAnimationComplete = () => {
+        console.log('All letters have animated!');
+    };
     return (
-        <div >
-            <h1> Login </h1>
-            <form action="#">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required />
-                <br />
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required />
-                <br />
-                <input type="submit" value="Login" />
-            </form>
+        <div className=' h-72 justify-center flex items-center gap-y-16 flex-col'>
+            <SplitText
+                text="Selamat Datang di e-Voting!"
+                className="text-4xl font-semibold text-center "
+                delay={100}
+                animationFrom={{ opacity: 0, transform: 'translate3d(0,50px,0)' }}
+                animationTo={{ opacity: 1, transform: 'translate3d(0,0,0)' }}
+                easing="easeOutCubic"
+                threshold={0.2}
+                rootMargin="-50px"
+                onLetterAnimationComplete={handleAnimationComplete}
+            />
+            <button className='border-1 border-blue-500 shadow-md text-blue-500 rounded-lg px-10 py-5 hover:text-white hover:bg-blue-500 text-xl cursor-pointer hover:scale-110 duration-500' onClick={props.connectWallet}>Login Metamask</button>
         </div>
+
+
     )
 }
+Login.propTypes = {
+    connectWallet: PropTypes.func.isRequired,
+};
 
 export default Login
