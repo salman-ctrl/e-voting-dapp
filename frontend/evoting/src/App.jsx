@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react'
 import { ethers } from 'ethers';
 import { contractAbi, contractAddress } from './Constant/constan';
+import Login from './Components/Login';
 
 import React from 'react'
 
 const App = () => {
   return (
     <div>
-      <h1 className='text-red-500 font-'>halo</h1>
+      <Login />
+
     </div>
   )
 }
