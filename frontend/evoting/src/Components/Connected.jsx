@@ -38,7 +38,13 @@ const Connected = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-
+                        {props.candidate.map((candidates, index) => (
+                            <tr key={index} className="hover:bg-gray-100">
+                                <td className="border border-gray-300 p-2 text-center">{index + 1}</td>
+                                <td className="border border-gray-300 p-2 text-center">{candidates.name}</td>
+                                <td className="border border-gray-300 p-2 text-center">{candidates.voteCount}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
