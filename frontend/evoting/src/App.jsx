@@ -34,6 +34,18 @@ const App = () => {
     }
   }, []);
 
+  async function vote() {
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    await window.ethereum.request({ method: "eth_requestAccounts" });
+    const signer = await provider.getSigner();
+    const contractInstance = new ethers.Contract(
+      contractAddress, contractAbi, signer
+    );
+
+    const tx = await contractInstance.vote(number);
+    await tx.wait();
+    canVote();
+  }
 
   async function canVote() {
     const provider = new ethers.BrowserProvider(window.ethereum);
