@@ -13,9 +13,11 @@
     "@react-spring/web": "^9.7.5",
     "@tailwindcss/vite": "^4.0.14",
     "ethers": "^6.13.5",
+    "lucide-react": "^0.482.0",
     "prop-types": "^15.8.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-router-dom": "^7.3.0",
     "sweetalert2": "^11.17.2",
     "tailwindcss": "^4.0.14"
   },
