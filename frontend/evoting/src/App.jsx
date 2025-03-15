@@ -10,9 +10,15 @@ const App = () => {
   const [provider, setProvider] = useState(null);
   const [account, setAccount] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
+  const [votingStatus, setVotingStatus] = useState(true);
+  const [remainingRime, setRemainingTime] = useState('');
+  const [candidates, setCandidates] = useState([]);
 
 
   useEffect(() => {
+    getCandidate();
+    getRemainingTime();
+    getCurrentStatus();
     if (window.ethereum) {
       window.ethereum.on('accountsChanged', handleAccountChange);
     }
@@ -22,21 +28,67 @@ const App = () => {
         window.ethereum.removeListener('accountChanged', handleAccountChange);
       }
     }
-  });
+  }, []);
+
+  async function getCandidate() {
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    await window.ethereum.request({ method: "eth_requestAccounts" });
+    const signer = await provider.getSigner();
+    const contractInstance = new ethers.Contract(
+      contractAddress, contractAbi, signer
+    );
+
+    const candidateList = await contractInstance.getAllVotesOfCandiates();
+    const formattedCandidates = candidateList.map((candidate, index) => {
+      return {
+        index: index,
+        name: candidate.name,
+        voteCount: candidate.toNumber()
+      }
+    });
+
+    setCandidates(formattedCandidates);
+    console.log(candidateList);
+  }
+
+
+  async function getCurrentStatus() {
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    await window.ethereum.request({ method: "eth_requestAccounts" });
+    const signer = await provider.getSigner();
+    const contractInstance = new ethers.Contract(
+      contractAddress, contractAbi, signer
+    );
+
+    const status = await contractInstance.getVotingStatus();
+    console.log(status);
+    setVotingStatus(status);
+  }
+
+  async function getRemainingTime() {
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+    const signer = await provider.getSigner();
+    const contractInstance = new ethers.Contract(
+      contractAddress, contractAbi, signer
+    );
+    const time = await contractInstance.getRemainingTime();
+    setRemainingTime(parseInt(time, 16));
+  }
 
   const handleAccountChange = (accounts) => {
-    if (accounts.length > 0 && account !== account[0]) {
+    if (accounts.length > 0 && account !== accounts[0]) {
       setAccount(accounts[0]);
     } else {
       setIsConnected(false);
-      setAccount[null]
+      setAccount(null);
     }
   }
 
   async function connectToMetamask() {
     if (window.ethereum) {
       try {
-        // Untuk ethers v6
+        // Untuk ethe rs v6
         const provider = new ethers.BrowserProvider(window.ethereum);
         setProvider(provider);
 
