@@ -21,8 +21,7 @@ const Connected = (props) => {
                         </p>
                     ) : (
                         <div>
-                            <input type="number" className='outline-none border-blue-500 border-1 px-5 py-2 rounded-md focus:shadow-lg' placeholder='Masukan nomor kandidat' value={props.number} onChange={props.handleNumberChange} name="" id="" />
-                            <button className='px-5 py-5 rounded-md bg-blue-500 text-white text-2xl' onClick={props.voteFunction}>Vote </button>
+
                         </div>
                     )}
 
