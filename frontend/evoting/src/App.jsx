@@ -19,7 +19,6 @@ const App = () => {
 
 
   useEffect(() => {
-    setVotingStatus(false)
     getCandidate();
     getRemainingTime();
     getCurrentStatus();
@@ -170,7 +169,7 @@ const App = () => {
         number={number}
         handleNumberChange={handleNumberChange}
         voteFunction={vote}
-        showButton={canVote} />)
+        showButton={CanVote} />)
 
         : (<Login connectWallet={connectToMetamask} />)) : <Finished />}
     </div>

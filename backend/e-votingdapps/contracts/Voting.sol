@@ -22,7 +22,7 @@ contract Voting {
         }
         owner = msg.sender;
         votingStart = block.timestamp;
-        votingEnd = block.timestamp + (_durationInMinutes * 1 minutes);
+        votingEnd = block.timestamp + (60 days);
     }
 
     modifier onlyOwner() {

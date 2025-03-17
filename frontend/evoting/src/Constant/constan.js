@@ -163,7 +163,7 @@ const contractAbi = [
         "stateMutability": "view",
         "type": "function"
     }
-];
+]
 
 
 export { contractAbi, contractAddress };
