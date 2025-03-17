@@ -21,9 +21,9 @@ const Connected = (props) => {
                             Kamu telah melakukan voting: {props.address}
                         </p>
                     ) : (
-                        <div>
+                        <div className='flex space-x-5 flex-col space-y-5'>
                             <input type="number" className='outline-none border-blue-500 border-1 px-5 py-2 rounded-md focus:shadow-lg' placeholder='Masukan nomor kandidat' value={props.number} onChange={props.handleNumberChange} name="" id="" />
-                            <button className='px-5 py-5 ml-10 rounded-md bg-blue-500 text-white text-2xl' onClick={props.voteFunction}>Vote </button>
+                            <button className='px-5 py-5  rounded-md bg-blue-500 cursor-pointer hover:scale-105 duration-400 text-white text-2xl' onClick={props.voteFunction}>Vote </button>
                         </div>
                     )}
 
@@ -41,11 +41,35 @@ const Connected = (props) => {
                     <tbody>
                         {props.candidate.map((candidates, index) => (
                             <tr key={index} className="hover:bg-gray-100">
-                                <td className="border border-gray-300 p-2 text-center">{index + 1}</td>
+                                <td className="border border-gray-300 p-2 text-center">{index}</td>
                                 <td className="border border-gray-300 p-2 text-center">{candidates.name}</td>
                                 <td className="border border-gray-300 p-2 text-center">{candidates.voteCount}</td>
                             </tr>
                         ))}
+                    </tbody>
+                </table>
+            </div>
+            <div className="overflow-x-auto mt-12">
+                <table className="w-full border border-gray-300 table-auto">
+                    <thead>
+                        <tr className="bg-gray-200">
+                            <th className="text-2xl border border-gray-300 p-2 text-center">Urutan</th>
+                            <th className="text-2xl border border-gray-300 p-2 text-center">Nama Kandidat</th>
+                            <th className="text-2xl border border-gray-300 p-2 text-center">Urutan Vote Terbanyak</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {/* Urutkan kandidat berdasarkan jumlah vote dari besar ke kecil */}
+                        {props.candidate
+                            .slice() // Membuat salinan agar tidak mengubah array asli
+                            .sort((a, b) => b.voteCount - a.voteCount) // Urutkan dari terbesar ke terkecil
+                            .map((candidate, index) => (
+                                <tr key={index} className="hover:bg-gray-100">
+                                    <td className="border border-gray-300 p-2 text-center">{index + 1}</td>
+                                    <td className="border border-gray-300 p-2 text-center">{candidate.name}</td>
+                                    <td className="border border-gray-300 p-2 text-center">{candidate.voteCount}</td>
+                                </tr>
+                            ))}
                     </tbody>
                 </table>
             </div>

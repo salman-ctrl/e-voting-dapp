@@ -100,6 +100,9 @@ const App = () => {
 
   async function handleNumberChange(e) {
     setNumber(e.target.value);
+    if (setNumber === 0) {
+      alert("ngga boleh kosong");
+    }
   }
 
   async function getRemainingTime() {
@@ -162,7 +165,7 @@ const App = () => {
   return (
     <div className='w-screen h-screen justify-center flex-col flex items-center'>
 
-      {votingStatus ? (isConnected ? (<Connected
+      {isConnected ? (<Connected
         address={account}
         candidate={candidates}
         remainingTime={remainingTime}
@@ -171,7 +174,7 @@ const App = () => {
         voteFunction={vote}
         showButton={CanVote} />)
 
-        : (<Login connectWallet={connectToMetamask} />)) : <Finished />}
+        : (<Login connectWallet={connectToMetamask} />)}
     </div>
   );
 }
